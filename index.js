@@ -1,9 +1,9 @@
 const inquirer = require('inquirer');
 const fs = require('fs')
 
-const Circle = require('./lib/shapes.js')
-const Rectangle = require('./lib/shapes.js')
-const Triangle = require('./lib/shapes.js')
+const Circle = require('./lib/Circle.js')
+const Rectangle = require('./lib/Rectangle.js')
+const Triangle = require('./lib/Triangle.js')
 // && input.val == /^[a-zA-Z]$/
 
 const questions = [
@@ -30,8 +30,8 @@ const questions = [
         name: 'shape',
         message: 'What shape do you want to use?',
         choices: [
-            'Triangle',
             'Circle',
+            'Triangle',
             'Rectangle',
         ]
     },
@@ -50,8 +50,7 @@ inquirer.prompt(questions).then(answers => {
 });
 
 function createSVG(answers) {
-    console.log(answers)
-    if(answers.shape = 'Circle'){
+    if(answers.shape === 'Circle'){
        const newCircle = new Circle(answers.text, answers.textColor, answers.shapeColor).render()
        fs.writeFile('./logo.svg', newCircle, (err) => {
             if(err){
@@ -61,8 +60,8 @@ function createSVG(answers) {
             }
        }
        )
-    } else if (answers.shape = 'Triangle'){
-        const newTriangle = Triangle(answers.text, answers.textColor, answers.shapeCholor).render()
+    } else if (answers.shape === 'Triangle'){
+        const newTriangle = new Triangle(answers.text, answers.textColor, answers.shapeCholor).render()
         fs.writeFile('./logo.svg', newTriangle, (err) => {
             if(err){
                 console.log('Could not write file')
@@ -70,7 +69,7 @@ function createSVG(answers) {
                 console.log('Write Successful')
             }
         })
-    } else if (answers.shape = 'Rectangle'){
+    } else if (answers.shape === 'Rectangle'){
         const newRectangle = new Rectangle(answers.text, answers.textColor, answers.shapeColor).render()
         fs.writeFile('./logo.svg', newRectangle, (err) => {
             if(err){
